@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../util/theme/theme.dart';
-
 class RecipeIngredients extends StatelessWidget {
   const RecipeIngredients({super.key});
 
@@ -22,10 +20,31 @@ class IngredientTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(Icons.food_bank),
-      title: const Text('Title'),
-      trailing: Text('4 pcs', style: theme.textTheme.labelMedium),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: const ColoredBox(
+            color: Colors.white10,
+            child: Padding(
+              padding: EdgeInsets.all(3),
+              child: Icon(Icons.food_bank_outlined),
+            ),
+          ),
+        ),
+        const Expanded(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              'Toast bread',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ),
+        const Text('3 pc'),
+      ]),
     );
   }
 }
