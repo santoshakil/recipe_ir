@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../util/theme/theme.dart' show theme;
+
 class ReciepTypes extends StatelessWidget {
   const ReciepTypes({super.key});
 
@@ -7,9 +9,9 @@ class ReciepTypes extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 50,
+        height: 30,
         child: ListView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           scrollDirection: Axis.horizontal,
           itemCount: types.length,
           itemBuilder: (context, index) {
@@ -18,11 +20,16 @@ class ReciepTypes extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: ColoredBox(
-                  color: Colors.green.withOpacity(.2),
+                  color: Colors.green.withOpacity(.1),
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    child: Text(types[index]),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Center(
+                      child: Text(
+                        types[index],
+                        style: theme.textTheme.labelMedium!
+                            .copyWith(color: Colors.teal.shade300),
+                      ),
+                    ),
                   ),
                 ),
               ),

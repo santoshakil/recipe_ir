@@ -37,8 +37,11 @@ class _Info extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('230', style: theme.textTheme.titleMedium),
-          Text('label', style: theme.textTheme.labelMedium),
+          Text('230',
+              style: theme.textTheme.titleMedium!
+                  .copyWith(color: Colors.teal.shade300)),
+          Text('label',
+              style: theme.textTheme.labelMedium!.copyWith(color: Colors.grey)),
         ],
       ),
     );

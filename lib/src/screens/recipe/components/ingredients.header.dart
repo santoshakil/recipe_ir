@@ -20,7 +20,7 @@ class IngredientsHeader extends StatelessWidget {
             ),
             Text(
               '6 ${t.items}',
-              style: theme.textTheme.labelMedium,
+              style: theme.textTheme.labelMedium!.copyWith(color: Colors.grey),
             ),
           ],
         ),

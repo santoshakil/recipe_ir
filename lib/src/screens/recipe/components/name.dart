@@ -8,7 +8,7 @@ class RecipeNameHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(10, 10.0, 10, 0.0),
       sliver: SliverToBoxAdapter(
         child: Text(
           'This is Recipe name',
