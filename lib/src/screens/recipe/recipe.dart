@@ -29,6 +29,7 @@ class RecipeView extends StatelessWidget {
           slivers: [RecipeIngredients()],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: const RecipeButton(),
     );
   }
