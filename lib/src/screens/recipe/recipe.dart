@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'components/button.dart';
-import 'components/image.dart';
-import 'components/info.dart';
-import 'components/ingredients.dart';
-import 'components/ingredients.header.dart';
-import 'components/name.dart';
+import 'components/button.dart' show RecipeButton;
+import 'components/image.dart' show RecipeImage;
+import 'components/info.dart' show RecipeInfo;
+import 'components/ingredients.dart' show RecipeIngredients;
+import 'components/ingredients.header.dart' show IngredientsHeader;
+import 'components/name.dart' show RecipeNameHeader;
+import 'components/reciep_type.dart' show ReciepTypes;
 
 class RecipeView extends StatelessWidget {
   const RecipeView({super.key});
@@ -20,6 +21,7 @@ class RecipeView extends StatelessWidget {
           const RecipeImage(),
           const RecipeNameHeader(),
           const RecipeInfo(),
+          const ReciepTypes(),
           const IngredientsHeader(),
         ],
         body: const CustomScrollView(
