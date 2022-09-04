@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'components/appbar.dart';
-import 'components/floating.button.dart';
-import 'components/list.dart';
-import 'components/search.bar.dart';
+import 'components/appbar.dart' show HomeAppBar;
+import 'components/floating.button.dart' show HomeFloatingButton;
+import 'components/list.dart' show RecipeList;
+import 'components/search.bar.dart' show RecipeSearchBar;
+import 'components/tutorials.dart' show Tutorials;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,6 +17,7 @@ class HomeScreen extends StatelessWidget {
         headerSliverBuilder: (_, __) => const [
           HomeAppBar(),
           RecipeSearchBar(),
+          Tutorials(),
           SliverToBoxAdapter(child: Divider(endIndent: 10, indent: 10)),
         ],
         body: const CustomScrollView(
