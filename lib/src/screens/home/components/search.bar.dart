@@ -7,12 +7,32 @@ class RecipeSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SliverPadding(
-      padding: const EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 5.0),
+      padding: const EdgeInsets.all(10),
       sliver: SliverToBoxAdapter(
-        child: TextField(
-          decoration: InputDecoration(
-            labelText: t.searchRecipe,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: ColoredBox(
+            color: theme.cardColor,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(Icons.search),
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: TextField(
+                        decoration: InputDecoration(
+                      fillColor: Colors.transparent,
+                      contentPadding: EdgeInsets.zero,
+                      hintText: t.searchRecipe,
+                    )),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
