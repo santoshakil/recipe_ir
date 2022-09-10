@@ -13,7 +13,16 @@ class RecipeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit_rounded),
+            splashRadius: 22.0,
+            onPressed: () {},
+          ),
+          const SizedBox(width: 10.0),
+        ],
+      ),
       body: NestedScrollView(
         physics: const BouncingScrollPhysics(),
         headerSliverBuilder: (_, __) => [
