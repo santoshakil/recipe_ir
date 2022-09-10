@@ -5,7 +5,8 @@ class RecipeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.small(
+    return FloatingActionButton(
+      heroTag: 'default.floating.hero',
       child: const Icon(Icons.favorite_outline_rounded),
       onPressed: () {},
     );

@@ -9,6 +9,7 @@ class HomeFloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.small(
+      heroTag: 'default.floating.hero',
       child: const Icon(Icons.add_rounded),
       onPressed: () async => await fadeRoute(context, const RecipeView()),
     );
