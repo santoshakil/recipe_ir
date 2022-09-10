@@ -8,7 +8,8 @@ import 'components/ingredients.header.dart';
 import 'components/name.dart';
 
 class RecipeView extends StatelessWidget {
-  const RecipeView({super.key});
+  const RecipeView(this.name, {super.key});
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class RecipeView extends StatelessWidget {
       body: NestedScrollView(
         physics: const BouncingScrollPhysics(),
         headerSliverBuilder: (_, __) => [
-          const RecipeImage(),
+          RecipeImage(name),
           const RecipeNameHeader(),
           const RecipeInfo(),
           const IngredientsHeader(),
