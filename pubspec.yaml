@@ -16,6 +16,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   google_fonts: ^3.0.1
+  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:
@@ -32,3 +33,4 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+    - assets/demo/

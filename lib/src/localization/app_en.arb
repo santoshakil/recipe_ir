@@ -3,5 +3,7 @@
   "searchRecipe": "Search Recipe",
   "ingredients": "Ingredients",
   "items": "Items",
-  "item": "Item"
+  "item": "Item",
+  "settings": "Settings",
+  "theme": "Theme"
 }

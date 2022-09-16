@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../theme.dart';
 
-const darkButtonColor = Color.fromARGB(255, 0, 129, 129);
+const darkPrimaryColor = Color.fromARGB(255, 0, 129, 129);
 
 ThemeData get darkTheme {
   return ThemeData(
     brightness: Brightness.dark,
+    primaryColor: darkPrimaryColor,
     elevatedButtonTheme: darkElevatedButtonTheme,
     inputDecorationTheme: inputDecorationTheme,
+    listTileTheme: darkListTileTheme,
     cardTheme: darkCardTheme,
     appBarTheme: appBarTheme,
   );
@@ -21,7 +23,9 @@ const darkCardTheme =
 
 final darkElevatedButtonTheme = ElevatedButtonThemeData(
   style: ElevatedButton.styleFrom(
-    backgroundColor: darkButtonColor,
+    backgroundColor: darkPrimaryColor,
     shape: roundedRectangleBorder20,
   ),
 );
+
+const darkListTileTheme = ListTileThemeData(shape: roundedRectangleBorder20);

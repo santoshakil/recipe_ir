@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+
+import '../../../util/theme/theme.dart';
 
 class RecipeImage extends StatelessWidget {
   const RecipeImage(this.name, {Key? key}) : super(key: key);
@@ -14,9 +18,16 @@ class RecipeImage extends StatelessWidget {
           child: Stack(
             alignment: Alignment.topRight,
             children: [
-              SizedBox(
+              Container(
                 width: size.width,
                 height: 200.0,
+                decoration: const BoxDecoration(
+                  borderRadius: borderRadius20,
+                  image: DecorationImage(
+                    image: AssetImage('assets/demo/food.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               IconButton(
                 icon: const Icon(Icons.add_photo_alternate_outlined),

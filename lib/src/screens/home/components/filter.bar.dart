@@ -28,9 +28,9 @@ class FilterCard extends StatelessWidget {
       duration: const Duration(milliseconds: 500),
       margin: const EdgeInsets.fromLTRB(0.0, 5.0, 10.0, 5.0),
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 3.0),
-      decoration: const BoxDecoration(
-        borderRadius: borderRadius15,
-        color: Colors.teal,
+      decoration: BoxDecoration(
+        borderRadius: borderRadius20,
+        color: theme.primaryColor,
       ),
       child: Text(text, style: theme.textTheme.labelMedium),
     );
