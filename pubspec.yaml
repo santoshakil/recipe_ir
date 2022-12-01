@@ -1,16 +1,15 @@
 name: recipe_ir
 description: A new Flutter project.
 
-# Prevent accidental publishing to pub.dev.
 publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
+  sdk: ">=2.18.5 <3.0.0"
 
 dependencies:
-  file_picker: ^5.0.1
+  file_picker: ^5.2.3
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -27,10 +26,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # Enable generation of localized Strings from arb files.
   generate: true
 
   assets:
-    # Add assets from the images directory to the application.
     - assets/images/
     - assets/demo/
