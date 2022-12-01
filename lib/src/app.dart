@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart'
     show AppLocalizations;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'localization/localization.dart';
 import 'screens/home/home.dart';
@@ -12,13 +13,15 @@ class AppRoot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: localizationsDelegates,
-      supportedLocales: supportedLocales,
-      debugShowCheckedModeBanner: false,
-      onGenerateTitle: onGenerateTitle,
-      theme: Themes.dark.data,
-      home: const _App(),
+    return ProviderScope(
+      child: MaterialApp(
+        localizationsDelegates: localizationsDelegates,
+        supportedLocales: supportedLocales,
+        debugShowCheckedModeBanner: false,
+        onGenerateTitle: onGenerateTitle,
+        theme: Themes.dark.data,
+        home: const _App(),
+      ),
     );
   }
 }

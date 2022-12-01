@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../riverpod/state.provider.dart';
 import '../../../util/theme/theme.dart';
 
 class RecipeInfoTextStack extends StatelessWidget {
-  const RecipeInfoTextStack({Key? key}) : super(key: key);
+  const RecipeInfoTextStack(this.i, {Key? key}) : super(key: key);
+  final int i;
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +24,7 @@ class RecipeInfoTextStack extends StatelessWidget {
                   maxLines: 1,
                 ),
               ),
-              IconButton(
-                iconSize: 18.0,
-                icon: const Icon(Icons.favorite_outline_rounded),
-                onPressed: () {},
-              ),
+              _FavIcon(i: i),
               Text('5.0', style: theme.textTheme.labelMedium),
             ],
           ),
@@ -52,6 +51,24 @@ class RecipeInfoTextStack extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _FavIcon extends ConsumerWidget {
+  const _FavIcon({Key? key, required this.i}) : super(key: key);
+  final int i;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isFevourite = ref.watch(isFevouriteProvider(i));
+    return IconButton(
+      iconSize: 18.0,
+      icon: isFevourite
+          ? const Icon(Icons.favorite)
+          : const Icon(Icons.favorite_border),
+      onPressed: () =>
+          ref.read(isFevouriteProvider(i).notifier).state = !isFevourite,
     );
   }
 }

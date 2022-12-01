@@ -31,7 +31,7 @@ class RecipeCard extends StatelessWidget {
                   borderRadius: borderRadius20,
                   color: Colors.black38,
                 ),
-                child: const RecipeInfoTextStack(),
+                child: RecipeInfoTextStack(i),
               ),
             ],
           ),
