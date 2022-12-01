@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:isar/isar.dart';
 
-import '../../../util/route/route.dart';
-import '../../recipe/recipe.dart';
+import '../../../db/db.dart';
+import '../../../model/recipe/recipe.dart';
 
 class HomeFloatingButton extends StatelessWidget {
   const HomeFloatingButton({Key? key}) : super(key: key);
@@ -11,7 +12,27 @@ class HomeFloatingButton extends StatelessWidget {
     return FloatingActionButton.small(
       heroTag: 'default.floating.hero',
       child: const Icon(Icons.add_rounded),
-      onPressed: () async => await fadeRoute(context, const RecipeView('')),
+      // onPressed: () async => await fadeRoute(context, const RecipeView('')),
+      onPressed: () async {
+        final recipe = Recipe(
+          id: DateTime.now().millisecondsSinceEpoch,
+          name: 'Name ${DateTime.now().millisecondsSinceEpoch}',
+          addedAt: DateTime.now(),
+          description: 'Description 1',
+          imageUrl: 'https://picsum.photos/200',
+          ingredients: ['Ingredient 1', 'Ingredient 2'],
+          duration: const Duration(minutes: 30).inSeconds,
+        );
+        await db.writeTxn(() => db.recipes.put(recipe));
+
+        final recipe2 = await db.recipes
+            .filter()
+            .nameContains('Name', caseSensitive: false)
+            .descriptionContains('Des')
+            .findAll();
+
+        debugPrint('$recipe2');
+      },
     );
   }
 }

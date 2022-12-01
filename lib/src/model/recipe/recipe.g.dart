@@ -17,28 +17,33 @@ const RecipeSchema = CollectionSchema(
   name: r'Recipe',
   id: 8054415271972849591,
   properties: {
-    r'description': PropertySchema(
+    r'addedAt': PropertySchema(
       id: 0,
+      name: r'addedAt',
+      type: IsarType.dateTime,
+    ),
+    r'description': PropertySchema(
+      id: 1,
       name: r'description',
       type: IsarType.string,
     ),
     r'duration': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'duration',
       type: IsarType.long,
     ),
     r'imageUrl': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'imageUrl',
       type: IsarType.string,
     ),
     r'ingredients': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'ingredients',
       type: IsarType.stringList,
     ),
     r'name': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'name',
       type: IsarType.string,
     )
@@ -82,11 +87,12 @@ void _recipeSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.description);
-  writer.writeLong(offsets[1], object.duration);
-  writer.writeString(offsets[2], object.imageUrl);
-  writer.writeStringList(offsets[3], object.ingredients);
-  writer.writeString(offsets[4], object.name);
+  writer.writeDateTime(offsets[0], object.addedAt);
+  writer.writeString(offsets[1], object.description);
+  writer.writeLong(offsets[2], object.duration);
+  writer.writeString(offsets[3], object.imageUrl);
+  writer.writeStringList(offsets[4], object.ingredients);
+  writer.writeString(offsets[5], object.name);
 }
 
 Recipe _recipeDeserialize(
@@ -96,13 +102,14 @@ Recipe _recipeDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Recipe(
-    description: reader.readString(offsets[0]),
-    duration: reader.readLong(offsets[1]),
-    imageUrl: reader.readString(offsets[2]),
-    ingredients: reader.readStringList(offsets[3]) ?? [],
-    name: reader.readString(offsets[4]),
+    addedAt: reader.readDateTime(offsets[0]),
+    description: reader.readString(offsets[1]),
+    duration: reader.readLong(offsets[2]),
+    id: id,
+    imageUrl: reader.readString(offsets[3]),
+    ingredients: reader.readStringList(offsets[4]) ?? [],
+    name: reader.readString(offsets[5]),
   );
-  object.id = id;
   return object;
 }
 
@@ -114,14 +121,16 @@ P _recipeDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
+      return (reader.readDateTime(offset)) as P;
     case 1:
-      return (reader.readLong(offset)) as P;
-    case 2:
       return (reader.readString(offset)) as P;
+    case 2:
+      return (reader.readLong(offset)) as P;
     case 3:
-      return (reader.readStringList(offset) ?? []) as P;
+      return (reader.readString(offset)) as P;
     case 4:
+      return (reader.readStringList(offset) ?? []) as P;
+    case 5:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -129,7 +138,7 @@ P _recipeDeserializeProp<P>(
 }
 
 Id _recipeGetId(Recipe object) {
-  return object.id;
+  return object.id ?? Isar.autoIncrement;
 }
 
 List<IsarLinkBase<dynamic>> _recipeGetLinks(Recipe object) {
@@ -216,6 +225,59 @@ extension RecipeQueryWhere on QueryBuilder<Recipe, Recipe, QWhereClause> {
 }
 
 extension RecipeQueryFilter on QueryBuilder<Recipe, Recipe, QFilterCondition> {
+  QueryBuilder<Recipe, Recipe, QAfterFilterCondition> addedAtEqualTo(
+      DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'addedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Recipe, Recipe, QAfterFilterCondition> addedAtGreaterThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'addedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Recipe, Recipe, QAfterFilterCondition> addedAtLessThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'addedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Recipe, Recipe, QAfterFilterCondition> addedAtBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'addedAt',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<Recipe, Recipe, QAfterFilterCondition> descriptionEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -399,7 +461,23 @@ extension RecipeQueryFilter on QueryBuilder<Recipe, Recipe, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Recipe, Recipe, QAfterFilterCondition> idEqualTo(Id value) {
+  QueryBuilder<Recipe, Recipe, QAfterFilterCondition> idIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id',
+      ));
+    });
+  }
+
+  QueryBuilder<Recipe, Recipe, QAfterFilterCondition> idIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id',
+      ));
+    });
+  }
+
+  QueryBuilder<Recipe, Recipe, QAfterFilterCondition> idEqualTo(Id? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -409,7 +487,7 @@ extension RecipeQueryFilter on QueryBuilder<Recipe, Recipe, QFilterCondition> {
   }
 
   QueryBuilder<Recipe, Recipe, QAfterFilterCondition> idGreaterThan(
-    Id value, {
+    Id? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -422,7 +500,7 @@ extension RecipeQueryFilter on QueryBuilder<Recipe, Recipe, QFilterCondition> {
   }
 
   QueryBuilder<Recipe, Recipe, QAfterFilterCondition> idLessThan(
-    Id value, {
+    Id? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -435,8 +513,8 @@ extension RecipeQueryFilter on QueryBuilder<Recipe, Recipe, QFilterCondition> {
   }
 
   QueryBuilder<Recipe, Recipe, QAfterFilterCondition> idBetween(
-    Id lower,
-    Id upper, {
+    Id? lower,
+    Id? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -936,6 +1014,18 @@ extension RecipeQueryObject on QueryBuilder<Recipe, Recipe, QFilterCondition> {}
 extension RecipeQueryLinks on QueryBuilder<Recipe, Recipe, QFilterCondition> {}
 
 extension RecipeQuerySortBy on QueryBuilder<Recipe, Recipe, QSortBy> {
+  QueryBuilder<Recipe, Recipe, QAfterSortBy> sortByAddedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'addedAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Recipe, Recipe, QAfterSortBy> sortByAddedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'addedAt', Sort.desc);
+    });
+  }
+
   QueryBuilder<Recipe, Recipe, QAfterSortBy> sortByDescription() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'description', Sort.asc);
@@ -986,6 +1076,18 @@ extension RecipeQuerySortBy on QueryBuilder<Recipe, Recipe, QSortBy> {
 }
 
 extension RecipeQuerySortThenBy on QueryBuilder<Recipe, Recipe, QSortThenBy> {
+  QueryBuilder<Recipe, Recipe, QAfterSortBy> thenByAddedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'addedAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Recipe, Recipe, QAfterSortBy> thenByAddedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'addedAt', Sort.desc);
+    });
+  }
+
   QueryBuilder<Recipe, Recipe, QAfterSortBy> thenByDescription() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'description', Sort.asc);
@@ -1048,6 +1150,12 @@ extension RecipeQuerySortThenBy on QueryBuilder<Recipe, Recipe, QSortThenBy> {
 }
 
 extension RecipeQueryWhereDistinct on QueryBuilder<Recipe, Recipe, QDistinct> {
+  QueryBuilder<Recipe, Recipe, QDistinct> distinctByAddedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'addedAt');
+    });
+  }
+
   QueryBuilder<Recipe, Recipe, QDistinct> distinctByDescription(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1086,6 +1194,12 @@ extension RecipeQueryProperty on QueryBuilder<Recipe, Recipe, QQueryProperty> {
   QueryBuilder<Recipe, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<Recipe, DateTime, QQueryOperations> addedAtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'addedAt');
     });
   }
 
