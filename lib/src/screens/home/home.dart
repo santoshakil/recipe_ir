@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'components/appbar.dart';
+import 'components/drawer.dart';
 import 'components/filter.bar.dart';
 import 'components/floating.button.dart';
 import 'components/list.dart';
@@ -14,9 +15,18 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: NestedScrollView(
         physics: const BouncingScrollPhysics(),
-        headerSliverBuilder: (_, __) => const [HomeAppBar(), RecipeSearchBar()],
-        body: Column(children: const [_Filter(), _Recipes()]),
+        headerSliverBuilder: (_, __) => const [
+          HomeAppBar(),
+          RecipeSearchBar(),
+        ],
+        body: const Column(
+          children: [
+            _Filter(),
+            _Recipes(),
+          ],
+        ),
       ),
+      drawer: const CustomDrawer(),
       floatingActionButton: const HomeFloatingButton(),
     );
   }
@@ -46,7 +56,9 @@ class _Filter extends StatelessWidget {
       child: CustomScrollView(
         scrollDirection: Axis.horizontal,
         physics: BouncingScrollPhysics(),
-        slivers: [RecipeFilterBar()],
+        slivers: [
+          RecipeFilterBar(),
+        ],
       ),
     );
   }

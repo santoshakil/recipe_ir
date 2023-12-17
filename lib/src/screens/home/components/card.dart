@@ -4,8 +4,9 @@ import '../../../util/theme/theme.dart';
 import 'recipe.info.dart';
 
 class RecipeCard extends StatelessWidget {
-  const RecipeCard(this.i, {Key? key}) : super(key: key);
+  const RecipeCard(this.i, {Key? key, this.name}) : super(key: key);
   final int i;
+  final String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class RecipeCard extends StatelessWidget {
                   borderRadius: borderRadius20,
                   color: Colors.black38,
                 ),
-                child: RecipeInfoTextStack(i),
+                child: RecipeInfoTextStack(i, name: name),
               ),
             ],
           ),
