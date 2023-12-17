@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../util/theme/theme.dart';
+import '../../constant.dart';
 
 class RecipeFilterBar extends StatelessWidget {
   const RecipeFilterBar({Key? key}) : super(key: key);
@@ -10,8 +11,8 @@ class RecipeFilterBar extends StatelessWidget {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       sliver: SliverAnimatedList(
-        initialItemCount: 10,
-        itemBuilder: (_, i, a) => FilterCard('Type $i'),
+        initialItemCount: recipeTypes.length,
+        itemBuilder: (_, i, a) => FilterCard(recipeTypes[i]),
       ),
     );
   }
@@ -29,7 +30,7 @@ class FilterCard extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(0.0, 5.0, 10.0, 5.0),
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 3.0),
       decoration: BoxDecoration(
-        borderRadius: borderRadius20,
+        borderRadius: BorderRadius.circular(18.0),
         color: theme.primaryColor,
       ),
       child: Text(text, style: theme.textTheme.labelMedium),

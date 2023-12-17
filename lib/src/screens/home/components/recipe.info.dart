@@ -5,8 +5,9 @@ import '../../../riverpod/state.provider.dart';
 import '../../../util/theme/theme.dart';
 
 class RecipeInfoTextStack extends StatelessWidget {
-  const RecipeInfoTextStack(this.i, {Key? key}) : super(key: key);
+  const RecipeInfoTextStack(this.i, {Key? key, this.name}) : super(key: key);
   final int i;
+  final String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +34,8 @@ class RecipeInfoTextStack extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Text(
-            'Recipe Name',
-            style: theme.textTheme.titleMedium
-                ?.copyWith(fontWeight: FontWeight.w900),
+            name ?? 'Recipe name',
+            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w900),
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
           ),
@@ -64,11 +64,8 @@ class _FavIcon extends ConsumerWidget {
     final isFevourite = ref.watch(isFevouriteProvider(i));
     return IconButton(
       iconSize: 18.0,
-      icon: isFevourite
-          ? const Icon(Icons.favorite)
-          : const Icon(Icons.favorite_border),
-      onPressed: () =>
-          ref.read(isFevouriteProvider(i).notifier).state = !isFevourite,
+      icon: isFevourite ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
+      onPressed: () => ref.read(isFevouriteProvider(i).notifier).state = !isFevourite,
     );
   }
 }
